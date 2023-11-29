@@ -18,7 +18,7 @@ spring:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     generate-ddl: false
     show-sql: false
 
@@ -40,7 +40,11 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:postgresql://acko-services-2-rds.internal.ackodev.com:5432/intl-travel-dev
+    jdbc-url: jdbc:postgresql://acko-services-dev-rds.acko.in:5432/travel-retail-v1
+gift-service:
+  dbName: travel-retail-v1
+user-service:
+  base-url: https://entity-service.internal.ackodev.com
 secrets:
   file: secrets.json
 
