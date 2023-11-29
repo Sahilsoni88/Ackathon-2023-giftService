@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: gift-service
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    minimumIdle: 5
+    maximumPoolSize: 10
+    poolName: travelHikariCP
+    idleTimeout: 300000
+    maxLifetime: 900000
+    connectionTestQuery: SELECT 1
+    connectionTimeout: 500
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: false
+
+  profiles:
+    default: local
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 8080
+
+debug: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://acko-services-2-rds.internal.ackodev.com:5432/intl-travel-dev
+secrets:
+  file: secrets.json
+
+---
