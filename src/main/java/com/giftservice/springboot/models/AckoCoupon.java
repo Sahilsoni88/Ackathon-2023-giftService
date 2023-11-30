@@ -1,5 +1,6 @@
 package com.giftservice.springboot.models;
 
+import com.giftservice.springboot.core.values.CardStyle;
 import com.giftservice.springboot.core.values.CouponStatus;
 import com.giftservice.springboot.core.values.CouponType;
 import jakarta.persistence.Column;
@@ -15,7 +16,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -52,10 +55,13 @@ public class AckoCoupon {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private CouponType type;
-    @Column(name = "image_url")
-    private String imageUrl;
+//    @Column(name = "image_url")
+//    private String imageUrl;
     @Column(name = "message")
     private String message;
+    @Column(name = "card_style", columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private CardStyle cardStyle;
     @CreationTimestamp
     @Column(name = "created_on", updatable = false)
     protected Instant createdOn;

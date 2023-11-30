@@ -2,6 +2,7 @@ package com.giftservice.springboot.usecases.fetchCoupons;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.giftservice.springboot.core.values.CardStyle;
 import com.giftservice.springboot.core.values.CouponStatus;
 import com.giftservice.springboot.core.values.CouponType;
 import com.giftservice.springboot.models.AckoCoupon;
@@ -38,7 +39,7 @@ public class FetchCouponsResponse {
         private CouponType type;
         private String expiry;
         private String message;
-        private String imageUrl;
+        private CardStyle cardStyle;
         private double amount;
         public static final UserCoupon fromAckoCoupon(final AckoCoupon coupon){
             LocalDateTime localDateTime = LocalDateTime.ofInstant(coupon.getExpiry(), ZoneId.systemDefault());
@@ -51,7 +52,7 @@ public class FetchCouponsResponse {
                     .type(coupon.getType())
                     .expiry(expiryDate)
                     .message(coupon.getMessage())
-                    .imageUrl(coupon.getImageUrl())
+                    .cardStyle(coupon.getCardStyle())
                     .amount(coupon.getUsableAmount())
                     .build();
         }

@@ -1,14 +1,11 @@
 package com.giftservice.springboot.usecases.redeemCoupon;
 
-import com.giftservice.springboot.common.CommonRequest;
 import com.giftservice.springboot.common.CommonResponse;
 import com.giftservice.springboot.core.values.CouponStatus;
 import com.giftservice.springboot.infrastructure.user.CentralUserRepo;
 import com.giftservice.springboot.models.AckoCoupon;
 import com.giftservice.springboot.models.User;
 import com.giftservice.springboot.repositories.AckoCouponRepo;
-import lombok.Builder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.auth.AuthenticationException;
 import org.springframework.stereotype.Service;

@@ -35,7 +35,7 @@ public class CreateCouponUseCase {
         );
         final Instant expiry = Instant.now().plus(365, ChronoUnit.DAYS);
         final CouponStatus status = request.getType().equals(CouponType.GIFT) ?
-                CouponStatus.PAYMENT_PENDING
+                CouponStatus.ACTIVE
                 : CouponStatus.ACTIVE;
         AckoCoupon coupon = AckoCoupon.builder()
                 .code(generateCouponCode())
@@ -48,7 +48,7 @@ public class CreateCouponUseCase {
                 .usableAmount(request.getAmount())
                 .status(status)
                 .message(StringUtils.isEmpty(request.getMessage()) ? "Best wishes" : request.getMessage())
-                .imageUrl(StringUtils.isEmpty(request.getImageUrl()) ? "default_url" : request.getImageUrl())
+                .cardStyle(request.getCardStyle())
                 .build();
         couponRepo.save(coupon);
         final CreateCouponResponse response = CreateCouponResponse.builder()

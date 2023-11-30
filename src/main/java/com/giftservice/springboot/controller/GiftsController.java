@@ -1,13 +1,15 @@
 package com.giftservice.springboot.controller;
 
+import com.giftservice.springboot.common.CommonRequest;
 import com.giftservice.springboot.common.CommonResponse;
+import com.giftservice.springboot.usecases.addCoins.AddCoinRequest;
+import com.giftservice.springboot.usecases.addCoins.AddCoinsUseCase;
 import com.giftservice.springboot.usecases.createCoupon.CreateCouponRequest;
 import com.giftservice.springboot.usecases.createCoupon.CreateCouponUseCase;
+import com.giftservice.springboot.usecases.fetchCoins.FetchWalletBalanceUseCase;
 import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsRequest;
-import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsResponse;
 import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsUseCase;
 import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponRequest;
-import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponResponse;
 import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
