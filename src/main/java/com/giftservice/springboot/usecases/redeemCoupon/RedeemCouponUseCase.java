@@ -33,7 +33,7 @@ public class RedeemCouponUseCase {
             if (!user.getId().equals(coupon.getUserId())) {
                 throw new RuntimeException("You are not authorized to redeem this coupon");
             }
-            if(coupon.getExpiry() != null || Instant.now().isAfter(coupon.getExpiry())){
+            if(coupon.getExpiry() != null && Instant.now().isAfter(coupon.getExpiry())){
                 throw new RuntimeException("Coupon has expired");
             }
             if (CouponStatus.ACTIVE.equals(coupon.getStatus())) {
