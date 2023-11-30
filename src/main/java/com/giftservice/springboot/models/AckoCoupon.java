@@ -52,6 +52,10 @@ public class AckoCoupon {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private CouponType type;
+    @Column(name = "image_url")
+    private String imageUrl;
+    @Column(name = "message")
+    private String message;
     @CreationTimestamp
     @Column(name = "created_on", updatable = false)
     protected Instant createdOn;

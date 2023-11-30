@@ -16,4 +16,6 @@ public class CreateCouponRequest extends CommonRequest {
     private String name;
     private String email;
     private CouponType type;
+    private String imageUrl;
+    private String message;
 }
