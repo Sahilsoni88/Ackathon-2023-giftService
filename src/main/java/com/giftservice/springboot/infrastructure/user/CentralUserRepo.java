@@ -54,7 +54,7 @@ public class CentralUserRepo implements IUserRepo {
       // NOTE: ERROR HANDLING
       switch (response.code()) {
         case HttpStatus.SC_BAD_REQUEST:
-          throw new UserAuthenticationException("Authentication failed for cookie: " + userId);
+          throw new UserAuthenticationException("Authentication failed");
         case HttpStatus.SC_NOT_FOUND:
         case HttpStatus.SC_BAD_GATEWAY:
         case HttpStatus.SC_GATEWAY_TIMEOUT:

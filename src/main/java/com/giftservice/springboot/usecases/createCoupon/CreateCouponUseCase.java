@@ -2,10 +2,12 @@ package com.giftservice.springboot.usecases.createCoupon;
 
 import com.giftservice.springboot.common.CommonResponse;
 import com.giftservice.springboot.core.values.CouponStatus;
+import com.giftservice.springboot.core.values.CouponType;
 import com.giftservice.springboot.infrastructure.user.CentralUserRepo;
 import com.giftservice.springboot.models.AckoCoupon;
 import com.giftservice.springboot.models.User;
 import com.giftservice.springboot.repositories.AckoCouponRepo;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.http.auth.AuthenticationException;
@@ -25,7 +27,6 @@ public class CreateCouponUseCase {
     private final CentralUserRepo userRepo;
     public final CommonResponse execute(final CreateCouponRequest request) throws AuthenticationException, IOException, ServiceUnavailableException {
         final User issuer = this.userRepo.fetch(request.getUserCookie());
-        request.setUserCookie(issuer.getId());
         final User user = userRepo.create(User.builder()
                 .name(request.getName())
                 .phone(request.getPhoneNumber())
@@ -33,16 +34,21 @@ public class CreateCouponUseCase {
                 .build()
         );
         final Instant expiry = Instant.now().plus(365, ChronoUnit.DAYS);
+        final CouponStatus status = request.getType().equals(CouponType.GIFT) ?
+                CouponStatus.ACTIVE
+                : CouponStatus.ACTIVE;
         AckoCoupon coupon = AckoCoupon.builder()
                 .code(generateCouponCode())
                 .couponId(UUID.randomUUID())
                 .userId(user.getId())
                 .type(request.getType())
                 .expiry(expiry)
-                .issuer(user.getId())
+                .issuer(issuer.getId())
                 .amount(request.getAmount())
                 .usableAmount(request.getAmount())
-                .status(CouponStatus.PAYMENT_PENDING)
+                .status(status)
+                .message(StringUtils.isEmpty(request.getMessage()) ? "Best wishes" : request.getMessage())
+                .cardStyle(request.getCardStyle())
                 .build();
         couponRepo.save(coupon);
         final CreateCouponResponse response = CreateCouponResponse.builder()

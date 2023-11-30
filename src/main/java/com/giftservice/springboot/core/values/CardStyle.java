@@ -1,6 +1,5 @@
-package com.giftservice.springboot.common;
+package com.giftservice.springboot.core.values;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -10,12 +9,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommonResponse {
-    private String status;
-    private String message;
-    private Object data;
+public class CardStyle {
+    private String imageUrl;
+    private String title;
+    private String subTitle;
+    private String backgroundColor;
 }
