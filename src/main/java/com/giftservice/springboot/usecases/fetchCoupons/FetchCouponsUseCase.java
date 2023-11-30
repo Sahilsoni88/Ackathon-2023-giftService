@@ -20,13 +20,17 @@ import java.util.List;
 public class FetchCouponsUseCase {
     private final AckoCouponRepo couponRepo;
     private final CentralUserRepo userRepo;
+
     public CommonResponse execute(final FetchCouponsRequest request)
             throws AuthenticationException, IOException, ServiceUnavailableException {
         final User user = this.userRepo.fetch(request.getUserCookie());
-        final List<AckoCoupon> availableAckoCouponList = couponRepo.findByUserId(user.getId());
-        final List<AckoCoupon> issuedAckoCouponList = couponRepo.findByIssuer(user.getId());
-        final FetchCouponsResponse response = FetchCouponsResponse.fromAckoCouponList(issuedAckoCouponList,
-                availableAckoCouponList);
+        final List<AckoCoupon> usableAckoCouponList = couponRepo.findByUserId(user.getId());
+        final List<AckoCoupon> giftedAckoCouponList = couponRepo.findByIssuer(user.getId());
+        final FetchCouponsResponse response = FetchCouponsResponse
+                .fromAckoCouponList(
+                        giftedAckoCouponList,
+                        usableAckoCouponList
+                );
         return CommonResponse.builder()
                 .status("success")
                 .message("fetched successfully")

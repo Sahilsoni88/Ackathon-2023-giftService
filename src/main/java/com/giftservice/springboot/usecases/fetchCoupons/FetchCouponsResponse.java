@@ -18,15 +18,15 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class FetchCouponsResponse {
     private List<UserCoupon> giftedCoupons;
-    private List<UserCoupon> availableCoupons;
-    public  static  FetchCouponsResponse fromAckoCouponList(final List<AckoCoupon> giftedCouponList,
-                                                            final List<AckoCoupon> availableCouponList){
-        final List<UserCoupon> giftedAckoCouponList = giftedCouponList.stream().map(UserCoupon::fromAckoCoupon).toList();
-        final List<UserCoupon> availableAckoCouponList = availableCouponList.stream().map(UserCoupon::fromAckoCoupon).toList();
+    private List<UserCoupon> usableCoupons;
+    public  static  FetchCouponsResponse fromAckoCouponList(final List<AckoCoupon> giftedAckoCouponList,
+                                                            final List<AckoCoupon> usableAckoCouponList){
+        final List<UserCoupon> giftedCouponList = giftedAckoCouponList.stream().map(UserCoupon::fromAckoCoupon).toList();
+        final List<UserCoupon> usableCouponList = usableAckoCouponList.stream().map(UserCoupon::fromAckoCoupon).toList();
 
         return FetchCouponsResponse.builder()
-                .giftedCoupons(giftedAckoCouponList)
-                .availableCoupons(availableAckoCouponList)
+                .giftedCoupons(giftedCouponList)
+                .usableCoupons(usableCouponList)
                 .build();
     }
     @Data
