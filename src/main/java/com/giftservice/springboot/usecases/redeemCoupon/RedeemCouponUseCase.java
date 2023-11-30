@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.ServiceUnavailableException;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,9 @@ public class RedeemCouponUseCase {
             AckoCoupon coupon = optionalCoupon.get();
             if (!user.getId().equals(coupon.getUserId())) {
                 throw new RuntimeException("You are not authorized to redeem this coupon");
+            }
+            if(coupon.getExpiry() != null || Instant.now().isAfter(coupon.getExpiry())){
+                throw new RuntimeException("Coupon has expired");
             }
             if (CouponStatus.ACTIVE.equals(coupon.getStatus())) {
                 if (coupon.getUsableAmount() >= request.getAmount()) {
