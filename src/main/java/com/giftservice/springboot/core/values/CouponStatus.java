@@ -4,6 +4,7 @@ public enum CouponStatus {
     ACTIVE("ACTIVE"),
     INACTIVE("INACTIVE"),
     EXPIRED("EXPIRED"),
+    USED("USED"),
     PAYMENT_PENDING("PAYMENT_PENDING"),
     INVALID("INVALID");
 

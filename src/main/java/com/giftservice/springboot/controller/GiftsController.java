@@ -6,6 +6,9 @@ import com.giftservice.springboot.usecases.createCoupon.CreateCouponUseCase;
 import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsRequest;
 import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsResponse;
 import com.giftservice.springboot.usecases.fetchCoupons.FetchCouponsUseCase;
+import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponRequest;
+import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponResponse;
+import com.giftservice.springboot.usecases.redeemCoupon.RedeemCouponUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.http.auth.AuthenticationException;
@@ -26,6 +29,7 @@ import java.io.IOException;
 public class GiftsController {
     private final CreateCouponUseCase createCouponUseCase;
     private final FetchCouponsUseCase fetchCouponsUseCase;
+    private final RedeemCouponUseCase redeemCouponUseCase;
     @GetMapping("/health")
     public ResponseEntity<String> healthCheck(){
         return new ResponseEntity<>("health-check", HttpStatus.OK);
@@ -43,5 +47,13 @@ public class GiftsController {
         request.setUserCookie(userCookie);
         final CommonResponse response = fetchCouponsUseCase.execute(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PostMapping("/redeem")
+    public ResponseEntity<CommonResponse> redeemCoupon(@CookieValue(value = "user_id") final String userCookie,
+                                                       @RequestBody final RedeemCouponRequest request)
+            throws AuthenticationException, IOException, ServiceUnavailableException {
+        request.setUserCookie(userCookie);
+        final CommonResponse response = redeemCouponUseCase.execute(request);
+        return  new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

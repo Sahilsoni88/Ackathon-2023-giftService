@@ -39,6 +39,7 @@ public class FetchCouponsResponse {
         private String expiry;
         private String message;
         private String imageUrl;
+        private double amount;
         public static final UserCoupon fromAckoCoupon(final AckoCoupon coupon){
             LocalDateTime localDateTime = LocalDateTime.ofInstant(coupon.getExpiry(), ZoneId.systemDefault());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
@@ -51,6 +52,7 @@ public class FetchCouponsResponse {
                     .expiry(expiryDate)
                     .message(coupon.getMessage())
                     .imageUrl(coupon.getImageUrl())
+                    .amount(coupon.getUsableAmount())
                     .build();
         }
     }
